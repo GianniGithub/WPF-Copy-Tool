@@ -1,0 +1,73 @@
+﻿<Window 
+        x:Name="Kopiere_User" x:Class="WpfCopyTool.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:self="clr-namespace:WpfCopyTool.TreeView_control"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        
+        mc:Ignorable="d"
+        Title="Kopiere User" Height="510" Width="580" ScrollViewer.CanContentScroll="True" UseLayoutRounding="False" ResizeMode="CanMinimize" Icon="logoCopyTool2.ico" Background="#FFECECEC" Focusable="False">
+
+    <Grid Margin="0,0,2,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="155*"/>
+            <ColumnDefinition Width="239*"/>
+            <ColumnDefinition Width="178*"/>
+        </Grid.ColumnDefinitions>
+        <CheckBox x:Name="checkBoxTDK" Content="Kopiere TDK Ordner" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,116,0,0" Height="16" Width="123"/>
+        <CheckBox x:Name="checkBoxD" Content="Kopiere D Laufwerk" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,95,0,0" Height="16" Width="120"/>
+        <CheckBox x:Name="checkBoxUser" Content="Kopiere User" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,74,0,0" Height="16" Width="85"/>
+        <Image x:Name="Logo" Height="59" VerticalAlignment="Top" Stretch="None" StretchDirection="UpOnly" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" Grid.ColumnSpan="3" Margin="10,10,45,0" Source="{DynamicResource Logo}"/>
+        <Button x:Name="ButKopiere" Content="Kopiere" HorizontalAlignment="Right" Margin="0,288,36,0" VerticalAlignment="Top" Grid.Column="2" Height="66" Width="107" Click="ButKopiere_Click" UseLayoutRounding="False"/>
+        <RadioButton x:Name="radioButtonzuruck" Content="Von Ext HDD zu PC" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="2" Margin="0,95,0,0" Height="16" Width="118"/>
+        <RadioButton x:Name="radioButtonhin" Content="Von PC zu Ext HDD" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,64,0,0" Grid.Column="2" Height="16" Width="118"/>
+        <Label x:Name="LabelID" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="11,43,0,0" RenderTransformOrigin="0.5,0.5" Width="392" Grid.ColumnSpan="3" Height="26">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.017"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label x:Name="labelSpeicherPlatzUsr" Content="" HorizontalAlignment="Left" Margin="135,69,0,0" VerticalAlignment="Top" Width="116" Height="26" Grid.ColumnSpan="2"/>
+        <Label x:Name="labelSpeicherPlatzDLaufwerk" Content="" HorizontalAlignment="Left" Margin="135,90,0,0" VerticalAlignment="Top" Width="116" Height="26" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="TestBox" Margin="0,385,0,0" Grid.ColumnSpan="3"/>
+        <TreeView ItemsSource="{Binding BackupFilesHierarchi}" x:Name="CopyBacktreeView" HorizontalAlignment="Right" Height="316" VerticalAlignment="Top" Width="379" Margin="0,64,5,0" Visibility="Hidden" Grid.ColumnSpan="2">
+            <TreeView.ItemContainerStyle>
+                <!-- 
+    This Style binds a TreeViewItem to a PersonViewModel. 
+    -->
+                <Style TargetType="{x:Type TreeViewItem}">
+                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                    <Setter Property="FontWeight" Value="Normal" />
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="FontWeight" Value="Bold" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TreeView.ItemContainerStyle>
+
+            <TreeView.Resources>
+                <HierarchicalDataTemplate DataType="{x:Type self:BackupFilesHierarchi}" ItemsSource="{Binding Children}">
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay}" Margin="3"/>
+                        <TextBlock Text="{Binding Filename}" />
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+            </TreeView.Resources>
+        </TreeView>
+        <ComboBox x:Name="comboBoxKopierVorlagen" HorizontalAlignment="Left" Margin="86,69,0,0" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
+        <CheckBox x:Name="checkBoxPrinter" Content="Printer" Grid.Column="2" HorizontalAlignment="Left" Margin="35,161,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="checkBoxDrives" Content="Drives" Grid.Column="2" HorizontalAlignment="Left" Margin="35,182,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="checkBoxWinZip" Content="WinZip" Grid.Column="2" HorizontalAlignment="Left" Margin="35,213,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
+        <PasswordBox x:Name="passwordBoxWinZip" Grid.Column="2" HorizontalAlignment="Left" Margin="35,234,0,0" VerticalAlignment="Top" Width="107" Password="passwort" Visibility="Hidden"/>
+        <TextBlock x:Name="SizeInfoLabel" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="243" Margin="10,137,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="374" Background="#FFECECFF"/>
+        <ProgressBar x:Name="ProgressBarZip" Grid.Column="2" HorizontalAlignment="Left" Height="10" Margin="35,259,0,0" VerticalAlignment="Top" Width="107" SmallChange="0"/>
+    </Grid>
+</Window>
+    
